@@ -37,7 +37,13 @@
                 @Html.DisplayFor(modelItem => item.ClientName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @if (item.Status == "Pending") {
+                    <span class="badge bg-warning text-dark">Pending</span>
+                } else if (item.Status == "In Progress") {
+                    <span class="badge bg-primary">In Progress</span>
+                } else {
+                    <span class="badge bg-success">Completed</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)
