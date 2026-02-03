@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ServiceTrackerExample.Models;
 
-namespace ServiceTrackerExample.Data
+namespace ServiceTrackerExample.DataServices
 {
     public class ApplicationDbContext : DbContext
     {

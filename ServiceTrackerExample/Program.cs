@@ -1,4 +1,4 @@
-using ServiceTrackerExample.Data;
+using ServiceTrackerExample.DataServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

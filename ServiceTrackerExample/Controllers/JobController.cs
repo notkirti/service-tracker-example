@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ServiceTrackerExample.Data;
+using ServiceTrackerExample.DataServices;
 using ServiceTrackerExample.Models;
 
 namespace ServiceTrackerExample.Controllers

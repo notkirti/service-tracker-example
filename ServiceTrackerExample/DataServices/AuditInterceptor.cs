@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using ServiceTrackerExample.Models;
 using System.Text.Json;
 
-namespace ServiceTrackerExample.Data
+namespace ServiceTrackerExample.DataServices
 {
     public class AuditInterceptor : SaveChangesInterceptor
     {
