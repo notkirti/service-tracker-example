@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServiceTrackerExample")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37ad397bf6b8ddfa107581101ac19a78c4dd547f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea1d08515c967b0fc43e2ea1c66e89a4a5ecc1b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServiceTrackerExample")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServiceTrackerExample")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
