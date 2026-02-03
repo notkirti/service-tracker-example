@@ -368,3 +368,12 @@
 /Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/obj/Debug/net10.0/ServiceTrackerExample.pdb
 /Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/obj/Debug/net10.0/ServiceTrackerExample.genruntimeconfig.cache
 /Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/obj/Debug/net10.0/ref/ServiceTrackerExample.dll
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/bin/Debug/net10.0/BuildHost-net472/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/appsettings.Development.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/appsettings.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/bin/Debug/net10.0/BuildHost-netcore/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.deps.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/bin/Debug/net10.0/BuildHost-netcore/Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.runtimeconfig.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/ServiceTrackerExample.deps.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/ServiceTrackerExample.runtimeconfig.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/ServiceTrackerExample.staticwebassets.endpoints.json
+/Users/kirti/Projects/service-tracker-example/ServiceTrackerExample/bin/Debug/net10.0/bin/Debug/net10.0/ServiceTrackerExample.staticwebassets.runtime.json
