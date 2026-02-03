@@ -9,5 +9,6 @@ namespace ServiceTrackerExample.Data
             : base(options) { }
 
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
     }
 }

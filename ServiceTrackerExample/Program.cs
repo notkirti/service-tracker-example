@@ -17,9 +17,10 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add the database context
+// Add the database context with audit interceptor
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .AddInterceptors(new AuditInterceptor()));
 
 var app = builder.Build();
 
