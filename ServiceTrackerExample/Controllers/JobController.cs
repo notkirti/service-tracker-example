@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ServiceTrackerExample.DataServices;
+using ServiceTrackerExample.Interfaces;
 using ServiceTrackerExample.Models;
 
 namespace ServiceTrackerExample.Controllers
@@ -9,22 +8,18 @@ namespace ServiceTrackerExample.Controllers
     [Route("api/[controller]")]
     public class JobController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IJobRepository _jobRepository;
 
-        public JobController(ApplicationDbContext context)
+        public JobController(IJobRepository jobRepository)
         {
-            _context = context;
+            _jobRepository = jobRepository;
         }
 
         // GET: api/job
         [HttpGet]
         public async Task<IActionResult> GetJobs()
         {
-            var jobs = await _context.Jobs
-                .OrderByDescending(j => j.Status == "Pending")
-                .ThenByDescending(j => j.CreatedAt)
-                .ToListAsync();
-                
+            var jobs = await _jobRepository.GetAllAsync();
             return Ok(jobs);
         }
 
@@ -32,7 +27,7 @@ namespace ServiceTrackerExample.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetJob(int id)
         {
-            var job = await _context.Jobs.FindAsync(id);
+            var job = await _jobRepository.GetByIdAsync(id);
             if (job == null) return NotFound();
             return Ok(job);
         }
@@ -43,12 +38,8 @@ namespace ServiceTrackerExample.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             
-            // Ensure CreatedAt is set to UTC
-            job.CreatedAt = DateTime.UtcNow;
-            
-            _context.Jobs.Add(job);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetJob), new { id = job.Id }, job);
+            var createdJob = await _jobRepository.AddAsync(job);
+            return CreatedAtAction(nameof(GetJob), new { id = createdJob.Id }, createdJob);
         }
 
         // PUT: api/job/5
@@ -57,17 +48,16 @@ namespace ServiceTrackerExample.Controllers
         {
             if (id != job.Id) return BadRequest();
 
-            // Set UpdatedAt to current UTC time
-            job.UpdatedAt = DateTime.UtcNow;
+            var existingJob = await _jobRepository.GetByIdAsync(id);
+            if (existingJob == null) return NotFound();
 
-            _context.Entry(job).State = EntityState.Modified;
-
-            try {
-                await _context.SaveChangesAsync();
+            try
+            {
+                await _jobRepository.UpdateAsync(job);
             }
-            catch (DbUpdateConcurrencyException) {
-                if (!_context.Jobs.Any(e => e.Id == id)) return NotFound();
-                throw;
+            catch
+            {
+                return NotFound();
             }
 
             return NoContent();
@@ -77,11 +67,10 @@ namespace ServiceTrackerExample.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJob(int id)
         {
-            var job = await _context.Jobs.FindAsync(id);
+            var job = await _jobRepository.GetByIdAsync(id);
             if (job == null) return NotFound();
 
-            _context.Jobs.Remove(job);
-            await _context.SaveChangesAsync();
+            await _jobRepository.DeleteAsync(id);
             return NoContent();
         }
     }

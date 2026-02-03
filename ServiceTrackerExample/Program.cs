@@ -1,4 +1,6 @@
 using ServiceTrackerExample.DataServices;
+using ServiceTrackerExample.Interfaces;
+using ServiceTrackerExample.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
            .AddInterceptors(new AuditInterceptor()));
+
+// Register repositories
+builder.Services.AddScoped<IJobRepository, JobRepository>();
 
 var app = builder.Build();
 
