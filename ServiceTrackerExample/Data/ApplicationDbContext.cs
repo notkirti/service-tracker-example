@@ -10,5 +10,21 @@ namespace ServiceTrackerExample.Data
 
         public DbSet<Job> Jobs { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Job>(entity =>
+            {
+                // Configure CreatedAt to have a default value in the database
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("GETUTCDATE()");
+
+                // Configure IsDeleted to have a default value of false
+                entity.Property(e => e.IsDeleted)
+                    .HasDefaultValue(false);
+            });
+        }
     }
 }

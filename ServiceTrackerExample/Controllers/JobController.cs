@@ -22,7 +22,7 @@ namespace ServiceTrackerExample.Controllers
         {
             var jobs = await _context.Jobs
                 .OrderByDescending(j => j.Status == "Pending")
-                .ThenByDescending(j => j.CreatedDate)
+                .ThenByDescending(j => j.CreatedAt)
                 .ToListAsync();
                 
             return Ok(jobs);
@@ -43,6 +43,9 @@ namespace ServiceTrackerExample.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             
+            // Ensure CreatedAt is set to UTC
+            job.CreatedAt = DateTime.UtcNow;
+            
             _context.Jobs.Add(job);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetJob), new { id = job.Id }, job);
@@ -53,6 +56,9 @@ namespace ServiceTrackerExample.Controllers
         public async Task<IActionResult> UpdateJob(int id, [FromBody] Job job)
         {
             if (id != job.Id) return BadRequest();
+
+            // Set UpdatedAt to current UTC time
+            job.UpdatedAt = DateTime.UtcNow;
 
             _context.Entry(job).State = EntityState.Modified;
 
