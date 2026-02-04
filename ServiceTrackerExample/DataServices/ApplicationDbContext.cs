@@ -17,13 +17,17 @@ namespace ServiceTrackerExample.DataServices
 
             modelBuilder.Entity<Job>(entity =>
             {
-                // Configure CreatedAt to have a default value in the database
                 entity.Property(e => e.CreatedAt)
                     .HasDefaultValueSql("GETUTCDATE()");
 
-                // Configure IsDeleted to have a default value of false
                 entity.Property(e => e.IsDeleted)
                     .HasDefaultValue(false);
+
+                entity.Property(e => e.Priority)
+                    .HasConversion<string>();
+
+                entity.Property(e => e.Category)
+                    .HasConversion<string>();
             });
         }
     }
