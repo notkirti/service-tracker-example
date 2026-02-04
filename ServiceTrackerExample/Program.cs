@@ -33,12 +33,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // Swagger is optional but good to have if you want it back later
 }
 
 app.UseHttpsRedirection();
 
-// 5. === USE CORS (Must be before MapControllers) ===
+// 5. === USE CORS===
 app.UseCors("AllowReactApp");
 
 app.MapControllers();
