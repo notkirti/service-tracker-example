@@ -1,55 +1,41 @@
+using Microsoft.EntityFrameworkCore;
 using ServiceTrackerExample.DataServices;
 using ServiceTrackerExample.Interfaces;
 using ServiceTrackerExample.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
-// Add CORS for frontend
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+           .AddInterceptors(new AuditInterceptor())); // Don't forget the Audit Log!
+
+builder.Services.AddScoped<IJobRepository, JobRepository>();
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:5174")
+        policy.WithOrigins("http://localhost:5173") // Your Frontend URL
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
 
-// Add the database context with audit interceptor
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-           .AddInterceptors(new AuditInterceptor()));
-
-// Register repositories
-builder.Services.AddScoped<IJobRepository, JobRepository>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    // Swagger is optional but good to have if you want it back later
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 
-app.UseCors("AllowFrontend");
+// 5. === USE CORS (Must be before MapControllers) ===
+app.UseCors("AllowReactApp");
 
-app.UseAuthorization();
-
-app.MapStaticAssets();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
+app.MapControllers();
 
 app.Run();
