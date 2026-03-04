@@ -18,3 +18,9 @@ yarn-error.log*
 .vs/
 .vscode/
 .DS_Store
+
+# secret and environment files
+**/secrets.json
+**/usersecrets.json
+.env
+.env.local
