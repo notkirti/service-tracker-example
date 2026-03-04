@@ -43,19 +43,16 @@ namespace ServiceTrackerExample.Repositories
 
         public async Task UpdateAsync(Job job)
         {
-            // Find the existing entity to ensure proper tracking
             var existingJob = await _context.Jobs.FindAsync(job.Id);
-            if (existingJob == null)
-            {
-                throw new InvalidOperationException($"Job with id {job.Id} not found.");
-            }
+            if (existingJob == null) return;
 
-            // Update properties
             existingJob.Title = job.Title;
             existingJob.ClientName = job.ClientName;
             existingJob.Status = job.Status;
+            existingJob.Priority = job.Priority;
+            existingJob.Category = job.Category;
             existingJob.UpdatedAt = DateTime.UtcNow;
-            
+
             await _context.SaveChangesAsync();
         }
 
